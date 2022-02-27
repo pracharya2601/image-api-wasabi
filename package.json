@@ -1,0 +1,27 @@
+{
+  "name": "image-api-wasabi",
+  "version": "1.0.0",
+  "description": "Image api",
+  "main": "index.js",
+  "repository": "https://github.com/pracharya2601/image-api-wasabi.git",
+  "author": "Prakash Acharya <pracharya2601@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1082.0",
+    "busboy": "^1.4.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-ejs-layouts": "^2.5.1",
+    "method-override": "^3.0.0",
+    "uuid": "^8.3.2"
+  }
+}

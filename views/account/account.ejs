@@ -1,0 +1,56 @@
+<div>
+    <div>
+        <h2>Account Page</h2>
+    </div>
+    <div>
+        Email: <%= email %>
+    </div>
+    <!-- <form action="/api/v1/upload" method="POST"> -->
+        <div id="image_view">
+
+        </div>
+        <input type="file" class="admin__input" id="myFile" name="myFile" />
+        <input class="admin__submit" type="submit" id="imageupload_button" />
+    <!-- </form> -->
+    <script>
+        const img_view = document.getElementById('image_view');
+        const delete_click = async (id) => {
+            alert(id);
+            let request = await fetch(`/api/v1/delete?key=${id}`, {
+                method: 'delete',
+            })
+            const response = await request.json()
+            console.log(response);
+        }
+        const uploadImage = async () => {
+            const [file] = document.getElementById('myFile').files;
+            const formData = new FormData()
+            formData.append('file', file)
+            try {
+                let request = await fetch('/api/v1/upload/', {
+                    method: 'post',
+                    body: formData,
+                })
+                const response = await request.json()
+                
+                const img_tag = document.createElement('img');
+                img_tag.setAttribute('src', response.data?.Location);
+                img_tag.setAttribute('class', 'image_item')
+                img_tag.setAttribute('alt', response.data?.key);
+                img_tag.setAttribute('onClick', `delete_click("${response.data?.key}")`)
+                img_view.appendChild(img_tag)
+                console.log('Response', response)
+            } catch (err) {
+                alert('Error uploading the files')
+                console.log('Error uploading the files', err)
+            }
+        }
+        const btn = document.getElementById('imageupload_button');
+        btn.addEventListener('click', uploadImage)
+    </script>
+    <div>
+        <a href="/console">
+            Go to Console
+        </a>
+    </div>
+</div>

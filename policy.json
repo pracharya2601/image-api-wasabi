@@ -1,0 +1,17 @@
+{
+  "Id": "Policy1645847195798",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1645847194079",
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::testing-101",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::100000138284:user/test-user-image"
+        ]
+      }
+    }
+  ]
+}
