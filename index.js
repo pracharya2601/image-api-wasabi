@@ -28,7 +28,7 @@ app.use('/*', function(req, res, next) {
 });
 
 app.get('/', (req, res) => (
-    res.render('index')
+    res.render('index', {user: ''})
 ))
 app.use('/', login);
 app.use('/', account);
