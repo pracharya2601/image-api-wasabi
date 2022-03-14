@@ -1,0 +1,50 @@
+<div class="p-2">
+    <form action="/signup" method="POST" class="p-2">
+    <%- include('../partials/authform/index.ejs', {type: 'signup'}) %>
+    </form>
+    <div class="w-full max-w-md p-4">
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3 mb-6 md:mb-0">
+                ALready have an account? Go to <a href="/login" class="text-blue-500 hover:text-blue-600 hover:underline">Login</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        setAttr('auth_submit', 'disabled', true);
+        const checkPassWordMatch = (p1, p2) => {
+            console.log(p1, p2)
+            if(p1 === p2) {
+                removeAttr('auth_submit', 'disabled');
+                addText('pass_error', "Password and confirmed password matched.");
+                removeClass('pass_error', 'text-red-500');
+                removeAttr('auth_submit', 'disabled');
+    
+            } else {
+                setAttr('auth_submit', 'disabled', true);
+                addText('pass_error', "Password and confirmed password did not matched.");
+                adClass('pass_error', 'text-red-500')
+            }
+        }
+        const handleMatch = (id) => (e) => {
+            const passVal = elmId('password');
+            const consfirmPassVal = elmId('confirmPassword');
+            if(id === passVal.id) {
+                //check password length
+                if(consfirmPassVal.value.length === 0) {
+                    passLengthCheck(e.target.value);
+                    return;
+                }
+                checkPassWordMatch(consfirmPassVal.value, e.target.value);
+            } else {
+                if(passVal.value.length === 0) {
+                    passLengthCheck(e.target.value);
+                    return;
+                }
+                checkPassWordMatch(passVal.value, e.target.value);
+            }
+        }
+        addEvent('password', 'keyup', handleMatch('password'))
+        addEvent('confirmPassword', 'keyup', handleMatch('confirmPassword'))
+    
+    </script>
+</div>

@@ -1,4 +1,82 @@
-<div>
-    <h2>Home Page</h2>
-    <a href="/console">Go to Console</a>
+<!-- Hero -->
+<%- include('./home/hero.ejs') %>
+<div id="about" />
+<%- include('./partials/sectiontitle/index.ejs', {
+  pretitle: 'about us', 
+  title: 'Making Difference working together',
+  detail: 'This is detail tag need to change once after write all the information.'
+}) %>
+
+<!-- FAQ -->
+<div id="services" />
+<%- include('./partials/sectiontitle/index.ejs', {
+  pretitle: 'services', 
+  title: 'Service we provide to our customer',
+  detail: 'We work beyond expectation to satisfy our customer to provide good services that they needed.'
+}) %>
+
+<!-- FAQ -->
+<%- include('./partials/sectiontitle/index.ejs', {
+  pretitle: 'faq', 
+  title: 'Frequently Asked Questions',
+  detail: 'Here are some of our FAQs. If you have any other questions you’d like answered please feel free to email us.'
+}) %>
+
+<div class="flex flex-col w-full lg:max-w-2xl mx-auto">
+  <%- include('./partials/detail-summary/index.ejs', {data: {
+    question: 'What is the purpose of this application?',
+    answer: 'The purpose of this application is to work with theJunior developer and collebrate with the different projects.'
+  }}) %>
+  <%- include('./partials/detail-summary/index.ejs', {data: {
+    question: 'How can I request a new browser?',
+    answer: 'The purpose of this application is to work with theJunior developer and collebrate with the different projects.'
+  }}) %>
+  <%- include('./partials/detail-summary/index.ejs', {data: {
+    question: 'Is there a mobile app?',
+    answer: 'The purpose of this application is to work with theJunior developer and collebrate with the different projects.'
+  }}) %>
+  <%- include('./partials/detail-summary/index.ejs', {data: {
+    question: 'What about other Chromium browsers?',
+    answer: 'The purpose of this application is to work with theJunior developer and collebrate with the different projects.'
+  }}) %>
 </div>
+
+<!-- CONTACT -->
+<div id="contact" />
+<%- include('./partials/sectiontitle/index.ejs', {
+  pretitle: 'contact', 
+  title: 'Connect with us',
+  detail: 'Have questions for us. Don`t hegitate to reach us out.'
+}) %>
+
+<%- include('./partials/input/index.ejs', {
+  id: 'email',
+  label:'Email',
+  placeholder: 'emmawatson@gmail.com',
+  value:'apple@gmail.com',
+  type: 'email',
+  error_id: 'em_error',
+  error_message: 'This is Error Message Need to sent to component',
+})%>
+
+
+
+  <!-- Contact Us -->
+  <!-- <section class="bg-bookmark-purple text-white py-20">
+    <div class="container">
+      <div class="sm:w-3/4 lg:w-2/4 mx-auto">
+        <p class="font-light uppercase text-center mb-8">35,000+ ALREADY JOINED</p>
+        <h1 class="text-3xl text-center">Stay up-to-date with what we’re doing</h1>
+        <div class="flex flex-col sm:flex-row gap-6 mt-8">
+          <input
+            type="text"
+            placeholder="Enter your email address"
+            class="focus:outline-none flex-1 px-2 py-3 rounded-md text-black"
+          />
+          <button type="button" class="btn bg-bookmark-red hover:bg-bookmark-white hover:text-black">
+            Contact Us
+          </button>
+        </div>
+      </div>
+    </div>
+  </section> -->

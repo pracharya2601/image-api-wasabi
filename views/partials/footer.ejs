@@ -1,0 +1,91 @@
+    <div class="container p-8 mx-auto xl:px-0">
+        <div class="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-700 lg:grid-cols-5">
+            <div class="lg:col-span-2">
+                <div>
+                    <a href="/" class="flex items-center space-x-2 text-2xl font-medium text-indigo-500">
+                      <span>
+                        <img
+                          src="/imgs/navIcon.png"
+                          class="h-8 w-auto"
+                        />
+                      </span>
+                      <span class="italic">
+                        D
+                        <span class="text-xs"> & </span>
+                        CS API
+                      </span>
+                    </a>
+                </div>
+    
+                <div class="max-w-md mt-4 text-gray-400">
+                    D&CS API is database and cloud storage provider with seamless and easy it integrate with api or url link on your application.
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-col flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
+                    <% if (user) { %>
+                        <a href="/dashboard" class="max-w-max capitalize w-full px-4 py-2 text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                            Dashboard
+                        </a>
+                    <% } %>
+                    <a href="/#about" class="max-w-max capitalize w-full px-4 py-2 text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                        About
+                    </a>
+                    <a  href="/#services" class="max-w-max capitalize w-full px-4 py-2 text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                        Services
+                    </a>
+                    <a href="/#contact" class="max-w-max capitalize w-full px-4 py-2 text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                        contact
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-col flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
+                <a href="/privacy" class="w-full max-w-max px-4 py-2 rounded-md text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                    Terms
+                </a>
+                <a href="/privacy" class="w-full max-w-max px-4 py-2 rounded-md text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                    Privacy
+                </a>
+                <a href="/privacy" class="w-full max-w-max px-4 py-2 rounded-md text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none focus:bg-gray-700">
+                    Legal
+                </a>
+            </div>
+            <div>
+                <div>Follow us</div>
+                <div class="flex mt-5 space-x-5 text-gray-500">
+                    <a  
+                        href="http://imagedebeaute.com/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <%- include('./icon/index.ejs', {iconName: 'twitter'}) %>
+                    </a>
+                    <a  
+                        href="http://imagedebeaute.com/"
+                        target="_blank"
+                        rel="noopener">
+                        <%- include('./icon/index.ejs', {iconName: 'facebook'}) %>
+                    </a>
+                    <a  
+                        href="http://imagedebeaute.com/"
+                        target="_blank"
+                        rel="noopener">
+                        <%- include('./icon/index.ejs', {iconName: 'instagram'}) %>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
+            Copyright © <%= new Date().getFullYear() %>. Made with ♥ by
+            <a
+              href="https://www.prakashacharya.com/"
+              target="_blank"
+              rel="noopener">
+              Prakash Acharya
+            </a>
+        </div>
+    </div>

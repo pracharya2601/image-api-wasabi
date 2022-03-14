@@ -3,7 +3,6 @@ const router = express.Router();
 
 router.get("/account", async (req, res) => {
   try {
-    console.log('body');
     res.render('account/account', {
         email: 'pracharya2601@gmail.com',
         user: '',

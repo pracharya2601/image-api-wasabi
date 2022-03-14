@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+    html, 
+    body {
+        @apply bg-gray-900 text-gray-100;
+    }
+    details > summary {
+        @apply list-none;
+    }
+    
+    details > summary::-webkit-details-marker {
+        @apply hidden
+    }
+    summary {
+        @apply block;
+    }
+      
+    summary::after {
+        @apply inline-block float-right transition duration-200 align-middle;
+    }
+    summary::after {
+        content: '\203A'; /* chevron */
+    }
+    
+    details[open] summary::after {
+        transform: rotate(90deg);
+    }
+}
