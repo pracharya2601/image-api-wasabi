@@ -1,28 +1,62 @@
 require('dotenv').config()
 const express = require("express");
-const bodyParser = require('body-parser');
+const session = require('express-session')
 const path = require('path');
+const {randomBytes} = require('crypto');
+const f = require('util').format;
+const fs = require('fs');
 const app = express();
+
+require("./redis");
+let RedisStore = require("connect-redis")(session)
 
 const expressLayouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
 
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-const api = require("./api/v1/index");
-const auth = require('./route/auth');
-const dashboard = require('./route/dashboard');
-const account = require('./route/account');
-const apiConsole = require('./route/console');
+const rootRouter = require('./route/index');
+const basicCombo = require('./middleware/basicCombo');
+const authCheck = require('./middleware/authCheck');
+const { socketHelper } = require('./socketdata');
+const { decrypt } = require('./utils/crypto');
+
+require('./redis');
+
+const sessionMiddleWare = session({
+    store: new RedisStore({client: cache}),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    genid: function() {
+        return randomBytes(8).toString("hex");
+    },
+    cookie: {
+        secure: false,
+        httpOnly: false,
+        maxAge: 1000 * 60 * 10,
+    }
+})
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 app.set('layout', 'layouts/layout')
 
-
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
+app.use(express.urlencoded({limit: '10mb', extended: false}))
+
+io.use((socket, next) => {
+    sessionMiddleWare(socket.request, socket.request.res || {}, next);
+})
+
+app.use(sessionMiddleWare)
+app.use(basicCombo);
+app.use(authCheck);
 
 app.use('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -31,14 +65,52 @@ app.use('/*', function(req, res, next) {
     next();
 });
 
-app.get('/', (req, res) => (
-    res.render('index', {user: 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png'})
-))
-app.use('/', auth)
-app.use('/', dashboard);
-app.use('/', account);
-app.use('/', apiConsole);
-app.use("/api", api);
+//router
+rootRouter.init(app)
+
+app.use((error, req, res, next) => {
+    if (!error.statusCode) error.statusCode = 500;
+    if (error.statusCode === 301) {
+        return res.status(301).redirect('/not-found');
+    }
+    if (error.statusCode === 401) {
+        return res.redirect('/auth/login')
+    }
+    return res.status(error.statusCode).json({error: error.toString()})
+})
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Server is running in port ${PORT}`));
+
+
+io.use((socket, next) => {
+    if(socket.request.session.user) {
+        socket.user = decrypt(socket.request.session.user);
+        next();
+    } else {
+        next(new Error('invalid'))
+    }
+})
+
+io.on('connection', socketHelper);
+
+app.set("socket", io)
+
+// dbo.connectToServer((err) => {
+//     console.log(err)
+// })
+
+// dbo.connectToServer(function (err) {
+//     if (err) {
+//       console.log(err);
+//       process.exit();
+//     }
+  
+//     // start the Express server
+//     app.listen(PORT, () => {
+//       console.log(`Server is running on port: ${PORT}`);
+//     });
+//   });
+
+app.listen(PORT, () => {
+    console.log(`listening on *:${PORT}`);
+});

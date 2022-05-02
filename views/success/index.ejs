@@ -1,0 +1,27 @@
+<div class="container mx-auto flex justify-center px-8 py-10">
+    <div 
+        id="message-container"
+        class=" mt-10 p-2 flex flex-col items-center text-center"
+    >
+        <div class="message-container-check">
+            <%- include('../partials/icon/index.ejs', {iconName: 'check'}) %>
+        </div>
+        <style>
+            .message-container-check > img {
+                height: 100px;
+                width: 100px;
+            }
+        </style>
+        <%= message %>
+    </div>
+    <script>
+        const load = () => {
+            let params = (new URL(document.location)).searchParams;
+            let a = params.get('redirectUrl');
+            setTimeout(() => window.location.replace(a), 3000)
+        }
+        window.onload = load;
+    </script>
+</div>
+
+<!-- we gonna send message here -->

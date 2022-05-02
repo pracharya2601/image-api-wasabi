@@ -1,0 +1,25 @@
+<div 
+    class="
+    px-3
+    w-full 
+    <% if (typeof customClass !== 'undefined' && customClass !== '' ) { %>
+        <%=customClass%> 
+    <% } else { %>
+        w-full
+    <% } %>
+    "
+>
+    <label 
+        class="block uppercase tracking-wide text-xs font-bold mb-2" 
+        htmlFor="<% if (typeof page !== 'undefined' ) { %><%=id%><% } %>"
+        >
+        <% if (typeof label !== 'undefined' ) { %><%=label%> <% } else { %> 'Need Label' <% } %>
+    </label>
+    <textarea
+        class="appearance-none block w-full bg-gray-800 rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
+        placeholder="<% if (typeof placeholder !== 'undefined' ) { %><%=placeholder%><% } %>"
+        id="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>"
+        name="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>" 
+        rows="5"
+    ></textarea>
+</div>

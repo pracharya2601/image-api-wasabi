@@ -1,11 +1,11 @@
 <div class="p-2">
-    <form action="/signup" method="POST" class="p-2">
+    <form action="/auth/signup" method="POST" class="p-2">
     <%- include('../partials/authform/index.ejs', {type: 'signup'}) %>
     </form>
     <div class="w-full max-w-md p-4">
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3 mb-6 md:mb-0">
-                ALready have an account? Go to <a href="/login" class="text-blue-500 hover:text-blue-600 hover:underline">Login</a>
+                ALready have an account? Go to <a href="/auth/login" class="text-blue-500 hover:text-blue-600 hover:underline">Login</a>
             </div>
         </div>
     </div>

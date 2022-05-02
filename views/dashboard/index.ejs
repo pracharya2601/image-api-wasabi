@@ -1,3 +1,23 @@
-<div>
-    This is DashBoard
+<div class="p-2">
+    <div class="text-xl py-2 px-2 mb-2">Hello! <%= userData.name %> Welcome to dashboard!! ajhs ahds a sjhsd shdj</div>
+    <div class="font-bold text-lg p-2 mb-1 mt-2">
+        Image API
+    </div>
+    <% for(var i=0; i < imageApi.length; i++) { %>
+        <%- include('../partials/dashboard-view/index.ejs', {
+                data: imageApi[i], 
+                serviceType: 'imageApi'
+            }) 
+        %>
+    <% } %>
+    <div class="font-bold text-lg p-2 mb-1 mt-5">
+        Data API
+    </div>
+    <% for(var i=0; i < dataApi.length; i++) { %>
+        <%- include('../partials/dashboard-view/index.ejs', {
+                data: dataApi[i], 
+                serviceType: 'dataApi'
+            }) 
+        %>
+    <% } %>
 </div>

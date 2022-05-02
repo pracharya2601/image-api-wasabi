@@ -1,0 +1,98 @@
+<div id="setting-page" class="mt-3">
+    <div class="w-full sm:w-1/2 max-w-sm px-3" id="copyApiKey">
+        <label class="block uppercase tracking-wide text-xs font-bold mb-2" htmlFor="imageApi">
+            API KEY
+        </label>
+        <input 
+            class="appearance-none block w-full bg-gray-800 cursor-pointer rounded py-3 px-4 mb-3 leading-tight focus:outline-none" 
+            disabled 
+            value="alasjkdljsdljdkslj" 
+            name="imageApi" 
+            id="imageApi" 
+            type="text" 
+        />
+        <p class="text-yellow-500 -mt-2 text-xs italic">Click on api key to copy</p>
+    </div>
+    
+    <div class="w-full md:w-1/2 px-3 mt-3">
+        <button id="renew-token" class="px-3 py-1 border border-gray-700 rounded hover:text-blue-500">
+            Renew Token
+        </button>
+    </div>
+    <div class="w-full md:w-1/2 px-3 mt-3">
+        <button id="confirm-delete-apiKey" class="px-3 py-1 border border-red-700 rounded hover:text-red-600 text-red-500">
+            Delete Api Key
+        </button>
+        <dialog id="deleteDialog"
+            class="rounded bg-gray-800 text-gray-100"
+        >
+            <form method="dialog">
+              <div>
+                  Are you sure You want to delete this Api Key?
+              </div>
+              <div class="mt-5 flex justify-end gap-2">
+                <button class="border border-red-500 bg-red-500 hover:bg-red-600 rounded-l px-3 py-2" value="cancel">Cancel</button>
+                <button id="confirmBtn" class="border rounded-r px-3 py-2 border-blue-500 bg-blue-500 hover:bg-blue-600" value="default">Confirm</button>
+              </div>
+            </form>
+        </dialog>
+    </div>
+
+</div>
+<script>
+    // const options= {
+    //     attributes: true
+    // }
+    // function callback(mutationList, observer) {
+    //     mutationList.forEach(function(mutation) {
+    //         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+    //             const isHidden = elmId('setting-page').parentNode.classList.contains('hidden');
+    //             if(isHidden) {
+    //                 return;
+    //             }
+    //             console.log('is this running')
+    //             socket.emit("imageApi", {tab: "setting", dataId: '<%=serviceId%>'}, (response) => {
+    //                 console.log(response); // "got it"
+    //             });
+    //         }
+    //     })
+    // }
+    // const observer = new MutationObserver(callback)
+    // observer.observe(elmId('setting-page').parentNode, options)
+
+    const checkIsArray = (arr) => {
+
+    }
+
+    let inp = elmId('imageApi')
+    let deleteDialog = elmId('deleteDialog');
+    addEvent('renew-token', 'click', (e) => {
+        socket.emit("renewToken", {tab: "setting", dataId: '<%=serviceId%>'}, (response) => {
+            console.log('res', response)
+        });
+    })
+    addEvent('copyApiKey', 'click', (e) => {
+        // navigator.clipboard.writeText(e.target.value)
+        const value = inp.value
+        inp.select();
+        inp.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(value)
+        inp.value="✓ Copied!"
+        setTimeout(() => {inp.value = value}, 1500)
+    })
+
+    addEvent('confirm-delete-apiKey', 'click',(e) => {
+        if (typeof deleteDialog.showModal === "function") {
+            deleteDialog.showModal();
+        } else {
+            alert("Sorry, the <dialog> API is not supported by this browser. Please try using different browser.");
+        }
+    })
+    addEvent('deleteDialog', 'close', () => {
+        if(deleteDialog.returnValue === 'default') {
+            //confirm butotn is clicked
+            //api request to delete api key 
+        }
+        console.log(deleteDialog.returnValue)
+    })
+</script>

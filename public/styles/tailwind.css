@@ -7,6 +7,9 @@
     body {
         @apply bg-gray-900 text-gray-100;
     }
+    html {
+        scroll-behavior: smooth;
+    }
     details > summary {
         @apply list-none;
     }
@@ -27,5 +30,15 @@
     
     details[open] summary::after {
         transform: rotate(90deg);
+    }
+    dialog::backdrop {
+        background: rgba(0,0,0,.45);
+      }
+
+    .hover-trigger .hover-target {
+        display: none;
+    }
+    .hover-trigger:hover .hover-target {
+        display: block;
     }
 }

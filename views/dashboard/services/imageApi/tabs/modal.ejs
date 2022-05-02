@@ -1,0 +1,113 @@
+<form id="modal-creater" class="">
+ 
+</form>
+<button id="schemagenerator">CheckData</button>
+<script>
+    $('#schemagenerator').click(function() {
+        let msjndsnd = $('#modal-creater').serializeJSON();
+        console.log(msjndsnd)
+    })
+    const sasa = {
+        _id: 'skldjklsjlsdlsd',
+        name: 'this is schema name',
+        fields: [
+            {
+                name: 'name',
+                type: 'string',
+                required: true,
+                length: 'short'
+            },
+            {
+                name: 'address',
+                type: 'object',
+                required: true,
+                fields: [
+                    {
+                        name:'streetName',
+                        type: 'string',
+                        required: 'true',
+                    },
+                    {
+                        name:'city',
+                        type: 'string',
+                        required: 'true',
+                    },
+                    {
+                        name:'state',
+                        type: 'string',
+                        required: 'true',
+                    },
+                    {
+                        name:'zip',
+                        type: 'string',
+                        required: 'true',
+                    },
+
+                ]
+            },
+            {
+                name: "password",
+                type: 'object',
+                required: 'true',
+                fields: [
+                    {
+                        name:'currentpassword',
+                        type:'string',
+                        required: true,
+                    },
+                    {
+                        name:'oldpassword',
+                        type:'array',
+                        required: true,
+                        childType: 'object',
+                        fields: [
+                            {
+                                name:'password',
+                                type:'string',
+                                required: true,
+                            },
+                            {
+                                name:'changedate',
+                                type:'string',
+                                required: true,
+                            },
+                            {
+                                name:'updateddate',
+                                type:'string',
+                                required: true,
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                name: 'stringarr',
+                type: 'array',
+                required: true,
+                childType: 'string',
+                fields: [],
+            },
+            {
+                name: 'numarray',
+                type: 'array',
+                required: true,
+                childType: 'number',
+                fields: [],
+            }
+        ]
+    };
+    let elementAppending = elmId('modal-creater');
+    let schema = new SchemaBuilder(elementAppending)
+    async function loadSchemaBuilder() {
+        if(location.hash === "#inactive-2") {
+            // jQuery(function($) {
+            //     $(document.getElementById('modal-creater')).formBuilder();
+            // });
+            schema.appendSchema(sasa)
+            // console.log(schema.schema)
+            // console.log(schema.appendingElement);
+        }
+    }
+    loadSchemaBuilder()
+    window.addEventListener('hashchange', loadSchemaBuilder);
+</script>

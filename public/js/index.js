@@ -11,6 +11,11 @@ const removeClass = (id, className) => {
     a.classList.remove(className);
 }
 
+const checkClass = (id, className) => {
+    let a = elmId(id);
+    return a.classList.contains(className)
+}
+
 const toggleClass = (id, className) => {
     let a = document.getElementById(id);
     if(a){

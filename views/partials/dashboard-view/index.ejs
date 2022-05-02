@@ -1,0 +1,45 @@
+<div class="p-2 relative border border-gray-700 mb-2 max-w-lg hover:bg-gray-800 hover-trigger rounded">
+    <div class="p-2 pr-10">
+        <h2><%= data?.name%></h2>
+    </div>
+    <div class="hover-target absolute top-0 right-0 mr-1 mt-1 bg-gray-800 border rounded p-1 border-gray-700">
+        <a href="/dashboard/services/<%=serviceType%>/<%=data?.id%>#overview">
+            <button class="border border-gray-700 px-2 text-sm hover:text-blue-500">
+                Dashboard
+            </button>
+        </a>
+        <a href="/dashboard/services/<%=serviceType%>/<%=data?.id%>#setting/delete">
+            <button class="border border-gray-700 px-2 text-sm hover:text-red-500">
+                Delete
+            </button>
+        </a>
+    </div>
+    <details 
+        id="<%=data?.id%>"
+        class="flex items-center justify-between w-full text-left bg-gray-700 text-gray-200 mt-2 rounded"
+    >
+        <summary id="summary-<%=data?.id%>" class="px-2 py-1 cursor-pointer hover:bg-gray-600 rounded-t hover:rounded">
+            Show Details
+        </summary>
+        <div class="px-4 pt-2 pb-4 text-gray-300 bg-gray-700 rounded-b">
+            <div>
+                <%= data?.details?.apiKey %>
+            </div>
+            <div>
+                <%= data?.details?.locationId %>
+            </div>
+        </div>
+    </details>
+    <script>
+        addEvent('<%=data?.id%>', "toggle", (e) => {
+            let elmn = elmId('summary-<%=data?.id%>')
+            if(e.target.open) {
+                elmn.innerHTML = 'Hide Details'
+                toggleClass('summary-<%=data?.id%>', 'bg-gray-800')
+            } else {
+                elmn.innerHTML = 'Show Details'
+                toggleClass('summary-<%=data?.id%>', 'bg-gray-800')
+            }
+        })        
+    </script>
+</div>
