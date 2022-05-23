@@ -22,11 +22,13 @@
             Show Details
         </summary>
         <div class="px-4 pt-2 pb-4 text-gray-300 bg-gray-700 rounded-b">
-            <div>
+            <div class="p-2 hover:bg-gray-800 cursor-pointer" onclick="copiedFunc(this)" data-id="<%= data?.details?.apiKey %>">
                 <%= data?.details?.apiKey %>
+                <span class="float-right" id="<%= data?.details?.apiKey %>"></span>
             </div>
-            <div>
+            <div class="p-2 hover:bg-gray-800 cursor-pointer" onclick="copiedFunc(this)" data-id="<%= data?.details?.locationId %>">
                 <%= data?.details?.locationId %>
+                <span class="float-right" id="<%= data?.details?.locationId %>"></span>
             </div>
         </div>
     </details>
@@ -40,6 +42,13 @@
                 elmn.innerHTML = 'Show Details'
                 toggleClass('summary-<%=data?.id%>', 'bg-gray-800')
             }
-        })        
+        }) 
+        function copiedFunc(e) {
+            const copyval = e.getAttribute("data-id");
+            navigator.clipboard.writeText(copyval);
+            let copiedSymbol = elmId(copyval);
+            copiedSymbol.innerHTML = "✓ Copied!";
+            setTimeout(() => {copiedSymbol.innerHTML = ""}, 2000)
+        }
     </script>
 </div>

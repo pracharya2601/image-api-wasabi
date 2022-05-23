@@ -1,0 +1,23 @@
+<div id="overview_dashboard">
+    <div class="max-w-lg my-5 p-2">
+        <%- include('../../../../partials/input/index.ejs', {
+            id: 'name',
+            label:'API Name',
+            placeholder: 'my-project-1',
+            type: 'text',
+            value: data.name,
+            disabled: 'yes',
+        })%>
+        <%- include('./helper/urlform.ejs', {disabled: true})%>
+        <%- include('../../../../partials/input/index.ejs', {
+            id: 'location',
+            label:'Location',
+            type: 'text',
+            value: data.location,
+            disabled: 'yes',
+        })%>
+    </div>
+</div>
+<script>
+
+</script>

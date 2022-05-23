@@ -177,7 +177,7 @@ class SchemaBuilder {
                     <select id="type" data-id="${newDataId}" class="appearance-none block w-full bg-gray-800 rounded py-3 px-4 max-w-xs leading-tight focus:outline-none">
                         ${dataTypes.map((dataType) => {
                             return `
-                                <option value="${dataType.val}" ${dataType.val === item.type && 'selected'}>${dataType.name}</option>
+                                <option value="${dataType}" ${dataType.val === item.type && 'selected'}>${dataType.name}</option>
                             `
                         }).join('')}
                     </select>

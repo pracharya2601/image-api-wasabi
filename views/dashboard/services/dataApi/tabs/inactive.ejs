@@ -1,0 +1,64 @@
+<div>
+    <form id="inactive_1_container" class="max-w-lg mt-2 p-2">
+        
+    </form>
+</div>
+<script>
+    let fromClass = new FormBuilder({});
+    const inactive_1 = elmId('inactive_1_container');
+    let timeout;
+
+    const initialiseEventListenet = () => {
+        let mnmn = inactive_1.getElementsByTagName("input")
+        for (var inp_f of mnmn) {
+            inp_f.addEventListener('input', handleInpChange)
+        }
+        let delBtn = inactive_1.querySelectorAll('.delete-button');
+        delBtn.forEach((btn) => {
+            btn.addEventListener('click', handleDelete)
+        })
+        let addBtn = inactive_1.querySelectorAll('.add-button');
+        addBtn.forEach((btn) => {
+            btn.addEventListener('click', handleAdd)
+        })
+    }
+    const handleInpChange = (e) => {
+        clearTimeout(timeout);
+        fromClass.updateChange(e)
+        timeout = setTimeout(() => {fromClass.handleSubmit()}, 3000)
+    }
+
+    const handleDelete = (e) => {
+        fromClass.onDeleteHandle(e.target.getAttribute('data-id'))
+        inactive_1.innerHTML = fromClass.elements;
+        initialiseEventListenet()
+    }
+    const handleAdd = (e) => {
+        fromClass.addHandle(e.target.getAttribute('data-id'))
+        inactive_1.innerHTML = fromClass.elements;
+        initialiseEventListenet()
+    }
+
+    //change socket with fetch 
+    // socket is only for realtime data fetching like uses andother stuff
+    // or creating the database and send the progessbar 
+    async function loadInactive() {
+        if(location.hash === "#inactive-1") {
+            // <%=serviceType%>/<%=serviceId%>
+            console.log('this is settinfg')
+            const response = await fetch(`/dashboard/services/<%=serviceType%>/<%=serviceId%>/setting`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            console.log('this is data', data);
+            fromClass.appendData(data.data)
+            inactive_1.innerHTML = fromClass.elements
+            initialiseEventListenet();
+        }
+    }
+    loadInactive()
+    
+    window.addEventListener('hashchange', loadInactive);
+</script>

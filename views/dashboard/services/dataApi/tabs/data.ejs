@@ -1,0 +1,126 @@
+
+<script>
+    // let objectNode = "";
+    // let schemaType = "key-value";
+    // let schemaBox = elmId('schema-designer-form')
+    // let fff = new FormSchema(schemaBox, {
+    //     schemaType: 'object',
+    //     address: {
+    //         schemaType: "object",
+    //         streetName: {
+    //             schemaType: "key-value",
+    //             htmlType: "text",
+    //             min: 0,
+    //             max: 0,
+    //             required: true,
+    //         },
+    //         city: {
+    //             schemaType: "key-value",
+    //             htmlType: "text",
+    //             min: 0,
+    //             max: 0,
+    //             required: true,
+    //         },
+    //     },
+    //     interestList: {
+    //         schemaType: 'array',
+    //         childType: 'array',
+    //         min: 3,
+    //         max:10,
+    //         required: false,
+    //         child: {
+    //             schemaType: 'array',
+    //             childType: 'object',
+    //             min: 3,
+    //             max:10,
+    //             required: false,
+    //             child: {
+    //                 schemaType: 'object',
+    //             }
+    //         }
+    //     }
+
+        
+    // })
+    // fff.renderForm();
+    // let wrapper = document.createElement('div');
+    // wrapper.innerHTML = buttonRender('');
+    // elmId('schema-form-wrapper').appendChild(wrapper)
+
+    // function openSchemaModal(e) {
+    //     objectNode = e.getAttribute('data-id');
+    //     toggleClass(`schema-option-dropdown${objectNode ? "-"+ objectNode : ''}` , 'hidden');
+    // }
+    // const schemaDialog = elmId('create-schema-dialog-box');
+    // function openModelSchema(e) {
+    //     schemaType = e.getAttribute('id');
+    //     if (typeof schemaDialog.showModal === "function") {
+    //         schemaDialog.showModal();
+    //         let dialogFormRenderContainer = elmId('dialog-form-render');
+    //         dialogFormRenderContainer.innerHTML = dialogFormRender(schemaType);
+    //     } else {
+    //         alert("Sorry, the <dialog> API is not supported by this browser. Please try using different browser.");
+    //     }
+    //     toggleClass(`schema-option-dropdown${objectNode ? "-"+ objectNode : ''}`, 'hidden');
+    // }
+    // addEvent('create-schema-dialog-box', 'close', () => {
+    //     if(schemaDialog.returnValue === 'default') {
+    //         let schemaFmElmn = elmId('schema-form-element').querySelectorAll('input');
+    //         // need to have a htmlType and childType value
+    //         let schemaSelectElmn = elmId('schema-form-element').querySelector('select');
+    //         let error = false;
+    //         let data = {
+    //             schemaType,
+    //         };
+    //         if(schemaSelectElmn !== null) {
+    //             data[schemaSelectElmn?.id] = schemaSelectElmn.value;
+    //         }
+    //         schemaFmElmn.forEach((inp) => {
+    //             let val = inp.value;
+    //             let customData = {};
+    //             if(inp.type === "checkbox") {
+    //                 val =  inp.checked
+    //             }
+    //             if(inp.type === 'number') {
+    //                 val = inp.value === "" ? 0 : parseInt(inp.value)
+    //             }
+    //             if(inp.type !== 'number' && !error) {
+    //                 error = inp.value === "" ? true : false;
+    //             }
+    //             data[inp.id] = val;
+    //         })
+    //         if(schemaType === 'array' && (childType === "array" || childType === "object")) {
+    //             data['child'] = {
+    //                 schemaType: value.childType
+    //             }
+    //         }
+    //         if(!error) {
+    //             fff.setValue(data, objectNode);
+    //         }
+    //     }
+    // })
+
+    // function deleteFunctionSchema(e) {
+    //     let needToRemoveDataID = e.getAttribute('data-id');
+    //     let needRemvoe = document.querySelector(`[data-id="${needToRemoveDataID}"]`).parentNode.parentNode;
+    //     needRemvoe.remove();
+    //     fff.deleteForm(needToRemoveDataID)
+    // }
+
+    // function previewJsonSchemaFunc() {
+    //     const dialogBox = elmId('json-preview-dialog-box');
+    //     if(typeof dialogBox.showModal === 'function') {
+    //         dialogBox.showModal();
+    //         let renderBox = elmId('preview-schema-render');
+    //         var str = JSON.stringify(fff.form, null, 2);
+    //         renderBox.innerHTML = str
+
+    //     } else {
+    //         alert("Sorry, the <dialog> API is not supported by this browser. Please try using different browser.")
+    //     }
+    // }
+    // addEvent('save-schema', 'click', (e) => {
+    //     e.preventDefault();
+    //     console.log('hello')
+    // })
+</script>

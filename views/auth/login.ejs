@@ -1,5 +1,5 @@
 <div class="p-2">
-    <form action="/auth/login" method="POST" class="p-2">
+    <form action="/auth/login" method="POST" class="p-2" id="login-form">
     <%- include('../partials/authform/index.ejs', {type: 'login'}) %>
     </form>
     <div class="w-full max-w-md p-4">
@@ -12,14 +12,20 @@
     <script>
         setAttr('auth_submit', 'disabled', true);
         addEvent('password', 'keyup', (e) => {
-          let pass = elmId('password').value;
-          if(pass.length < 7 || pass.length > 15) {
-              addText('pass_error', "Password length is invalid");
-              setAttr('auth_submit', 'disabled', true);
-          } else {
-              addText('pass_error', '');
-              removeAttr('auth_submit', 'disabled');
-          }
-      })
+            let pass = elmId('password').value;
+            if(pass.length < 7 || pass.length > 15) {
+                addText('pass_error', "Password length is invalid");
+                setAttr('auth_submit', 'disabled', true);
+            } else {
+                addText('pass_error', '');
+                removeAttr('auth_submit', 'disabled');
+            }
+        })
+        let params = (new URL(document.location)).searchParams;
+        let redirectUrl = params.get("redirectUrl");
+        if(redirectUrl === null) {
+            redirectUrl = '/dashboard'
+        }
+        setAttr('login-form', 'action', `/auth/login?redirectUrl=${encodeURIComponent(redirectUrl)}`)
       </script>
 </div>

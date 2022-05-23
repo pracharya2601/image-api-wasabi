@@ -18,7 +18,9 @@
         const load = () => {
             let params = (new URL(document.location)).searchParams;
             let a = params.get('redirectUrl');
-            setTimeout(() => window.location.replace(a), 3000)
+            if(a) {
+                setTimeout(() => window.location.replace(a), 3000);
+            }
         }
         window.onload = load;
     </script>

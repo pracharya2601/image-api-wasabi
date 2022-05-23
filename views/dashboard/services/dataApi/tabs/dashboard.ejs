@@ -1,0 +1,126 @@
+<script id="chart-js" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<div class="dashboard-container relative h-96 m-auto">
+    <div class="border border-gray-700 flex justify-between p-2" id="data-count">
+        <p class="max-w-content">Read Count: 30000</p>
+        <p class="max-w-content text-green-600">Write Count: 30000</p>
+        <p class="max-w-content text-red-500">Delete Count: 30000</p>
+    </div>
+    <canvas id="myChart"></canvas>
+</div>
+<script>
+    const labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        "July",
+        "August",
+        "Sept",
+        "Oct",
+        "Nov",
+        "Dec"
+    ]
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Delete Type',
+                // backgroundColor: 'rgb(40, 44, 39)',
+                borderColor: 'rgb(255, 0, 0)',
+                data: [4, 20, 36, 12, 20, 28, 49, 12, 79, 28, 102, 34],
+            },
+            {
+                label: 'Write Type',
+                // backgroundColor: 'rgb(40, 44, 39)',
+                borderColor: 'rgb(0, 255, 102)',
+                data: [22, 45, 40, 20, 29, 100, 43, 60, 79, 100, 88, 43],
+            },
+            {
+                label: 'Read Type',
+                // backgroundColor: 'rgb(17, 24, 39)',
+                borderColor: 'rgb(186, 195, 214)',
+                data: [90, 40, 78, 45, 20, 100, 59, 160, 179, 130, 128, 143],
+            },
+        ]
+    }
+    var options = {
+        maintainAspectRatio: false,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        stacked: false,
+        plugins: {
+            title: {
+                display: true,
+                text: 'API Uses'
+            }
+        },
+        scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+
+                // grid line settings
+                grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                },
+            },
+        }
+    }
+    const config = {
+        type: 'line',
+        data: data,
+        options: options,
+    }
+
+    async function loadDashboard() {
+        let mychart;
+        if(location.hash === "#dashboard") {
+            mychart = new Chart(elmId('myChart'), config)
+        } else {
+            if(mychart) {
+                mychart.destroy();
+            }
+        }
+    }
+    loadDashboard();
+    window.addEventListener('hashchange', loadDashboard);
+
+    let datatype = {
+        apiKey: 'thisisapikey',
+        domain: 'thisisdomain.com',
+        companyId: 'thisiscompanyid',
+        daily: {
+            read: {
+                '12-22-2022': 100,
+            },
+            write: {
+                '12-22-2022': 110
+            },
+            delete: {
+                '12-22-2022': 2
+            },
+        },
+        monthly: {
+            read: {
+                '1': 20000,
+            },
+            write: {
+                '1': 500,
+            },
+            delete: {
+                '1': 100,
+            }
+        }
+    }
+
+</script>

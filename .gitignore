@@ -2,3 +2,6 @@
 .env
 .env.local
 /mongo/caCert.pem
+
+/build
+.caCert.pem

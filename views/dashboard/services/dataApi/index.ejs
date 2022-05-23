@@ -1,3 +1,89 @@
-<div>
-    This is service Dashboard
+<div class="xl:w-full xl:mx-0 h-12 max-w-screen overflow-x-auto sm:block bg-gray-800 shadow rounded border-t border-gray-700">
+    <div class="flex border-b px-5" id="tab-holder">
+        <a href="/dashboard/services/<%=serviceType%>/<%=serviceId%>#overview">
+            <button id="overview" class="focus:outline-none text-sm border-indigo-700 pt-3 rounded-t mr-12 text-indigo-500 hover:text-indigo-400 cursor-pointer">
+                <div class="flex items-center mb-3">
+                    <span class="ml-1 font-normal">Overview</span>
+                </div>
+                <div class="w-full h-1 bg-indigo-700 rounded-t-md"></div>
+            </button>
+        </a>
+        <a href="/dashboard/services/<%=serviceType%>/<%=serviceId%>#setting">
+            <button id="setting"  class="focus:outline-none text-sm border-indigo-700 pt-3 rounded-t mr-12 hover:text-indigo-400 cursor-pointer">
+                <div class="flex items-center mb-3">
+                    <span class="ml-1 font-normal">Setting</span>
+                </div>
+                <div class="w-full h-1 bg-indigo-700 rounded-t-md hidden"></div>
+            </button>
+        </a>
+        <a href="/dashboard/services/<%=serviceType%>/<%=serviceId%>#dashboard">
+            <button id="dashboard" class="focus:outline-none text-sm border-indigo-700 pt-3 rounded-t mr-12 hover:text-indigo-400 cursor-pointer">
+                <div class="flex items-center mb-3">
+                    <span class="ml-1 font-normal">Dashboard</span>
+                </div>
+                <div class="w-full h-1 bg-indigo-700 rounded-t-md hidden" ></div>
+            </button>
+        </a>
+        <a href="/dashboard/services/<%=serviceType%>/<%=serviceId%>#schema">
+            <button id="schema" class="focus:outline-none text-sm border-indigo-700 pt-3 rounded-t mr-12 hover:text-indigo-400 cursor-pointer">
+                <div class="flex items-center mb-3">
+                    <span class="ml-1 font-normal">Schema</span>
+                </div>
+                <div class="w-full h-1 bg-indigo-700 rounded-t-md hidden" ></div>
+            </button>
+        </a>
+        <a href="/dashboard/services/<%=serviceType%>/<%=serviceId%>#data">
+            <button id="data" class="focus:outline-none text-sm border-indigo-700 pt-3 rounded-t mr-12 hover:text-indigo-400 cursor-pointer">
+                <div class="flex items-center mb-3">
+                    <span class="ml-1 font-normal">Data</span>
+                </div>
+                <div class="w-full h-1 bg-indigo-700 rounded-t-md hidden" ></div>
+            </button>
+        </a>
+    </div>
 </div>
+
+<div data-id="overview" class="">
+    <%-include('./tabs/overview.ejs') %>
+</div>
+<div data-id="setting" id="setting_container" class="hidden">
+    <%-include('./tabs/setting.ejs') %>
+</div>
+<div data-id="dashboard" class="hidden p-2">
+    <%-include('./tabs/dashboard.ejs') %>
+</div>
+<div data-id="schema" class="hidden">
+    <%-include('./tabs/modal.ejs') %>
+</div>
+<div data-id="data" class="hidden">
+    <%-include('./tabs/data.ejs') %>
+</div>
+<script>
+    if(!location.hash) {
+        location.hash = "#overview"
+    }
+    function loadData() {
+        const childItems = document.querySelector('#tab-holder').children;
+        for(let item of childItems) {
+            let childBtn = item.querySelector('button');
+            const elmn = document.querySelector(`[data-id=${childBtn.id}]`)
+            if(location.hash === `#${childBtn.id}`) {
+                elmn.classList.remove('hidden');
+                childBtn.children[1].classList.remove("hidden");
+                childBtn.classList.add("text-indigo-500");
+            } else {
+                elmn.classList.add('hidden');
+                childBtn.children[1].classList.add("hidden");
+                childBtn.classList.remove("text-indigo-500");
+            }
+
+        }
+    }
+    window.onload = loadData
+    window.addEventListener('hashchange', loadData);
+
+
+</script>
+<script>
+
+</script>
