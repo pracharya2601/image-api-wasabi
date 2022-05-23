@@ -1,0 +1,45 @@
+<div 
+    class="
+    px-3
+    w-full 
+    mb-1
+    <% if (typeof customClass !== 'undefined' && customClass !== '' ) { %>
+        <%=customClass%> 
+    <% } else { %>
+        w-full
+    <% } %>
+    "
+>
+    <label 
+        class="block uppercase tracking-wide text-xs font-bold mb-2" 
+        htmlFor="<% if (typeof page !== 'undefined' ) { %><%=id%><% } %>"
+    >
+    <% if (typeof label !== 'undefined' ) { %><%=label%> <% } else { %> 'Need Label' <% } %>
+    </label>
+</div>
+<div 
+    class="
+    px-3
+    w-full 
+    <% if (typeof customClass !== 'undefined' && customClass !== '' ) { %>
+        <%=customClass%> 
+    <% } else { %>
+        w-full
+    <% } %>
+    "
+>
+    <div className="relative z-1 mb-3">
+        <select 
+            className="block appearance-none w-full bg-gray-200 dark:bg-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none"
+            name="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>" 
+            id="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>"
+            placeholder="<% if (typeof placeholder !== 'undefined' ) { %><%=placeholder%><% } %>"
+            value="<% if (typeof value !== 'undefined' ) { %><%=value%><% } %>"
+        >
+        <% for(var i=0; i < options.length; i++) %>
+            <option value="<%= options[i].value %>"><%= options[i].name %></option>
+        <% } %>
+        </select>
+    </div>
+    <p class="text-red-500 text-xs italic" id="<% if (typeof error_id !== 'undefined' ) { %><%=error_id%><% } %>"></p>
+</div>

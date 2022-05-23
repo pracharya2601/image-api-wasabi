@@ -15,19 +15,43 @@
     >
     <% if (typeof label !== 'undefined' ) { %><%=label%> <% } else { %> 'Need Label' <% } %>
     </label>
-    <input 
-        class="appearance-none block w-full bg-gray-800 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" 
-        name="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>" 
-        id="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>"
-        type="<% if (typeof type !== 'undefined' ) { %><%=type%><% } %>" 
-        placeholder="<% if (typeof placeholder !== 'undefined' ) { %><%=placeholder%><% } %>"
-        value="<% if (typeof value !== 'undefined' ) { %><%=value%><% } %>"
-    />
-    <p class="text-red-500 text-xs italic" id="<% if (typeof error_id !== 'undefined' ) { %><%=error_id%><% } %>"></p>
+        <% if (typeof disabled !== 'undefined' ) { %>
+            <input 
+            class="appearance-none block w-full bg-gray-800 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" 
+            name="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>" 
+            id="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>"
+            type="<% if (typeof type !== 'undefined' ) { %><%=type%><% } %>" 
+            placeholder="<% if (typeof placeholder !== 'undefined' ) { %><%=placeholder%><% } %>"
+            value="<% if (typeof value !== 'undefined' ) { %><%=value%><% } %>"
+            disabled
+        />
+        <% } else { %> 
+            <input 
+            class="appearance-none block w-full bg-gray-800 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" 
+            name="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>" 
+            id="<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>"
+            type="<% if (typeof type !== 'undefined' ) { %><%=type%><% } %>" 
+            placeholder="<% if (typeof placeholder !== 'undefined' ) { %><%=placeholder%><% } %>"
+            value="<% if (typeof value !== 'undefined' ) { %><%=value%><% } %>"
+        />  
+        <% } %>
+        <% if (typeof copyKey !== 'undefined' ) { %> <p class="text-green-500 mb-2 float-right mr-1 hover:underline cursor-pointer -mt-2 text-xs italic" data-id="<%=id%>" onclick="copyFunction(this)">Copy</p> <% } %>
+        <% if (typeof info !== 'undefined' ) { %> <p class="text-orange-500 mb-2 -mt-2 text-xs italic"><%=info%> </p> <% } %>
+        <p class="text-red-500 text-xs italic" id="<% if (typeof error_id !== 'undefined' ) { %><%=error_id%><% } %>"></p>
 </div>
 <script>
     addEvent("<% if (typeof id !== 'undefined' ) { %><%=id%><% } %>", 'keyup', (e) => {
         if(e.target.value.length < 4) addText("<% if (typeof error_id !== 'undefined' ) { %><%=error_id%><% } %>", "<% if (typeof error_message !== 'undefined' ) { %><%=error_message%><% } %>");
         else addText("<% if (typeof error_id !== 'undefined' ) { %><%=error_id%><% } %>", '');
     })
-  </script>
+    function copyFunction(e) {
+        let inp = elmId(e.getAttribute('data-id'))
+        const value = inp.value;
+        inp.select();
+        inp.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(value)
+        inp.value="✓ Copied!"
+        setTimeout(() => {inp.value = value}, 1500)
+    }
+
+</script>

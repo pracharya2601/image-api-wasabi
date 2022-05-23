@@ -3,8 +3,6 @@ const express = require("express");
 const session = require('express-session')
 const path = require('path');
 const {randomBytes} = require('crypto');
-const f = require('util').format;
-const fs = require('fs');
 const app = express();
 
 require("./redis");
@@ -95,21 +93,6 @@ io.on('connection', socketHelper);
 
 app.set("socket", io)
 
-// dbo.connectToServer((err) => {
-//     console.log(err)
-// })
-
-// dbo.connectToServer(function (err) {
-//     if (err) {
-//       console.log(err);
-//       process.exit();
-//     }
-  
-//     // start the Express server
-//     app.listen(PORT, () => {
-//       console.log(`Server is running on port: ${PORT}`);
-//     });
-//   });
 
 app.listen(PORT, () => {
     console.log(`listening on *:${PORT}`);

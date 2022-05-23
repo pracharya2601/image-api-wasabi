@@ -1,0 +1,154 @@
+<div id="setting-page" class="mt-3">
+    <div class="w-full sm:w-1/2 max-w-sm ">
+        <%- include('../../../../partials/input/index.ejs', {
+            id: 'apiKey',
+            label:'API Key',
+            type: 'text',
+            value: data.apiKey,
+            info: 'Click on the key to copy',
+            disabled: 'yes',
+            copyKey: 'yes'
+        })%>
+        <%- include('../../../../partials/input/index.ejs', {
+            id: 'apiSecret',
+            label:'API Secret',
+            type: 'text',
+            value: data.apiSecret,
+            info: 'Click on the key to copy',
+            disabled: 'yes',
+            copyKey: 'yes'
+        })%>
+    </div>
+    
+    <div class="w-full md:w-1/2 px-3 mt-3">
+        <button id="renew-token" class="px-3 py-1 border border-gray-700 rounded hover:text-blue-500">
+            Renew Token
+        </button>
+    </div>
+    <div class="w-full md:w-1/2 px-3 mt-3">
+        <button id="promote-to-production" class="px-3 py-1 border border-gray-700 rounded hover:text-blue-500">
+            Promote to Production
+        </button>
+        <dialog id="promote-to-production-dialog"
+            class="rounded bg-gray-800 text-gray-100"
+        >
+            <form method="dialog" class="max-w-lg">
+              <div>
+                  These are the list of different stages url for accessing data. Please make sure to review it.
+              </div>
+              <div class="my-3 px-2 py-5 rounded bg-gray-900">
+                <%- include('./helper/urlform.ejs')%>
+                <div class="w-full px-3 mb-4 md:mb-1 md:mt-2">
+                    <p class="mb-1">Keep same api key and api secret</p>
+                    <div class="flex gap-2 items-center mb-1">
+                        <input type="radio" id="yes" name="keepSame" value="true" class="mr-2 leading-tight cursor-pointer form-radio h-5 w-5">
+                        <label for="yes" class="block tracking-wide text-md font-semi cursor-pointer">Yes</label>
+                    </div>
+                    <div class="flex gap-2 items-center mb-1">
+                        <input type="radio" id="no" name="keepSame" value="false" class="mr-2 leading-tight cursor-pointer form-radio h-5 w-5">
+                        <label for="no" class="block tracking-wide text-md font-semi cursor-pointer">No</label>
+                    </div>
+                </div>
+              </div>
+              <div class="mt-5 flex justify-end gap-2">
+                <button class="border border-red-500 bg-red-500 hover:bg-red-600 rounded-l px-3 py-2" value="cancel">Cancel</button>
+                <button id="confirmBtn" class="border rounded-r px-3 py-2 border-blue-500 bg-blue-500 hover:bg-blue-600" value="default">Confirm</button>
+              </div>
+            </form>
+        </dialog>
+    </div>
+    <div class="w-full md:w-1/2 px-3 mt-3">
+        <button id="confirm-delete-apiKey" class="px-3 py-1 border border-red-700 rounded hover:text-red-600 text-red-500">
+            Delete Api Key
+        </button>
+        <dialog id="deleteDialog"
+            class="rounded bg-gray-800 text-gray-100"
+        >
+            <form method="dialog">
+              <div>
+                  Are you sure You want to delete this Api Key?
+              </div>
+              <div class="mt-5 flex justify-end gap-2">
+                <button class="border border-red-500 bg-red-500 hover:bg-red-600 rounded-l px-3 py-2" value="cancel">Cancel</button>
+                <button id="confirmBtn" class="border rounded-r px-3 py-2 border-blue-500 bg-blue-500 hover:bg-blue-600" value="default">Confirm</button>
+              </div>
+            </form>
+        </dialog>
+    </div>
+
+    <% if (!data.isProduction) {%>
+        <div class="w-full md:w-1/2 px-3 mt-3">
+            <a href="/dashboard/services/<%=serviceType%>/<%=serviceId%>#">
+                <button class="px-3 py-1 border border-gray-700 rounded hover:text-blue-500">
+                    Promote to Production
+                </button>
+            </a>
+        </div>
+    <% } %>
+</div>
+<script>
+    // const options= {
+    //     attributes: true
+    // }
+    // function callback(mutationList, observer) {
+    //     mutationList.forEach(function(mutation) {
+    //         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+    //             const isHidden = elmId('setting-page').parentNode.classList.contains('hidden');
+    //             if(isHidden) {
+    //                 return;
+    //             }
+    //             console.log('is this running')
+    //             socket.emit("imageApi", {tab: "setting", dataId: '<%=serviceId%>'}, (response) => {
+    //                 console.log(response); // "got it"
+    //             });
+    //         }
+    //     })
+    // }
+    // const observer = new MutationObserver(callback)
+    // observer.observe(elmId('setting-page').parentNode, options)
+
+    const checkIsArray = (arr) => {
+
+    }
+
+    let inp = elmId('apiKey')
+    let deleteDialog = elmId('deleteDialog');
+    let promoteToProductionDialog = elmId('promote-to-production-dialog');
+    addEvent('renew-token', 'click', async (e) => {
+        // socket.emit("renewToken", {tab: "setting", dataId: '<%=serviceId%>'}, (response) => {
+        //     console.log('res', response)
+        // });
+        let a = await navigator.clipboard.readText();
+        alert(a)
+    })
+
+    addEvent('apiKey', 'click', (e) => {
+        const val = e.target.value;
+        console.log(e.target.val)
+        navigator.clipboard.writeText(value)
+        inp.value="✓ Copied!"
+        setTimeout(() => {inp.value = value}, 1500)
+    })
+
+    addEvent('confirm-delete-apiKey', 'click',(e) => {
+        if (typeof deleteDialog.showModal === "function") {
+            deleteDialog.showModal();
+        } else {
+            alert("Sorry, the <dialog> API is not supported by this browser. Please try using different browser.");
+        }
+    })
+    addEvent('promote-to-production', 'click',(e) => {
+        if (typeof promoteToProductionDialog.showModal === "function") {
+            promoteToProductionDialog.showModal();
+        } else {
+            alert("Sorry, the <dialog> API is not supported by this browser. Please try using different browser.");
+        }
+    })
+    addEvent('deleteDialog', 'close', () => {
+        if(deleteDialog.returnValue === 'default') {
+            //confirm butotn is clicked
+            //api request to delete api key 
+        }
+        console.log(deleteDialog.returnValue)
+    })
+</script>

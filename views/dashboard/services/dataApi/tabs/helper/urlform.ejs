@@ -1,0 +1,24 @@
+<%- include('../../../../../partials/input/index.ejs', {
+    id: 'accessURLDevelopment',
+    label:'Access URL Development',
+    placeholder: 'Eg: http://localhost:3000',
+    type: 'url',
+    value: data?.accessURLDevelopment,
+    info: "Leave it empty for production and staging environment."
+})%>
+<%- include('../../../../../partials/input/index.ejs', {
+    id: 'accessURLStaging',
+    label:'Access URL Staging',
+    placeholder: 'Eg: https://staging.myhosturl.com',
+    type: 'url',
+    value: data?.accessURLStaging,
+    info: 'Leave it empty for developement and production environment'
+})%>
+<%- include('../../../../../partials/input/index.ejs', {
+    id: 'accessURLProduction',
+    label:'Access URL Production',
+    placeholder: 'Eg: https://www.myhosturl.com',
+    type: 'url',
+    value: data?.accessURLProduction,
+    info: 'Leave it empty for staging and development environment'
+})%>

@@ -1,0 +1,39 @@
+<div class="max-w-lg my-5 p-2">
+    <form id="data-api-create" method="POST" action="/dashboard/services/<%=serviceType%>">
+        <%- include('../../../partials/input/index.ejs', {
+            id: 'name',
+            label:'API Name',
+            placeholder: 'my-project-1',
+            type: 'text',
+        })%>
+        <%- include('./tabs/helper/urlform.ejs', {data: {}})%>
+
+        <div 
+            class="
+            px-3
+            w-full 
+            mb-1
+            "
+        >
+            <label 
+                htmlFor="location"
+                class="block uppercase tracking-wide text-xs font-bold mb-2" 
+            >
+            Location
+            </label>
+            <div class="relative z-1 mb-3">
+                <select 
+                    name="location"
+                    id="locationn"
+                    class="block appearance-none w-full bg-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none"
+                >
+                <%- include('../../../partials/select/option.ejs', {
+                    defaultValue: 'opt2',
+                })%>
+                </select>
+            </div>
+        </div>
+        <p class="text-orange-500 text-xs italic ml-3 mb-3"></p>
+        <button type="submit" class="mt-2 px-3 py-2 border bg-blue-700 hover:bg-blue-800 border-gray-700 hover:border-blue-500 ml-3 rounded">Next</button>
+    </form>
+</div>
