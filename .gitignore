@@ -4,4 +4,4 @@
 /mongo/caCert.pem
 
 /build
-.caCert.pem
+caCert.pem
